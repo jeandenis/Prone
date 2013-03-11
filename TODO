@@ -1,0 +1,27 @@
+
+--------------------------------------------------------------------------------
+
+* hlint and lint everything
+* write basic comments / organizational stuff
+* clean up Monad + Maybe in Actor body
+
+--------------------------------------------------------------------------------
+
+* decide what to do as a test app
+  - game
+  - multi-user environment to watch videos, share links, chat, etc.
+  - 2d world-building
+  - something fun to do for a few minutes to get word of mouth?
+  - visualization of what's happening live in the web -- what's hot or
+    not (topics), etc. just like the galsses in accelerando
+  - tool to quickly take notes and publish to one's blog in a visual
+    format
+* consider whether we should already add persistence (or wait a bit). 
+  - the best way to add persistence is as another model view on top of
+    an actor's model (most likely).  but then, how do we handle non-view
+    elements for an actor (have actor-specific init functions that get
+    called with the database-resconstructed model).
+
+--------------------------------------------------------------------------------
+
+* Implement socket.io in Haskell to get around websocket dependency

@@ -1,0 +1,193 @@
+(8/11/2011 - 8/12/2011)
+* Wrote an integration test between a webclient and a server (http 
+  initially, websocket for ongoing communication) where the webclient
+  and server use a model (reset, updates), as well as custom messages
+  and replies, to communicate.
+  - custom message from client to server, with model update back to client
+  - response from server (as reply) to custom message by client
+  - server sends custom message to client, client responds (reply), server
+    handles the reply (through a continuation)
+* Integration tests can be run by loading a webpage.
+* Tested support for unicode characters (works)
+* Added way to create an actor without automatically triggering the 
+  InitActor message
+* Fixed minor problem with tests because of unbound jQuery when on Node.js
+
+(8/10/2011)
+* Decided to skip batch-updates for now and to continue with integration 
+  tests.  In the meantime, batch-update-like functionality can be 
+  implemented using channels of JSON objects.
+* Tested and fixed reset-callback functionality in modelclient
+
+(8/5/2001 - 8/7/2011)
+* Client and server connect to each other and the client gets an actor
+  assigned to it.
+* Build reset-callback functionality
+* Wrote some thoughts about how to handle bulk-updates to a model, how
+  to handle sub-models at the actor level, and how to take care of 
+  saving model state
+
+(8/3/2011 - 8/4/2011)
+* Implement the server-side code for the client-server protocol, working
+  from the javascript implementation as a standard
+* Wrote some tests for parsing, including a Unicode test to make sure UTF-8
+  is being handled correctly
+
+(7/15/2011 - 8/2/2011)
+* Wrote Haskell Serialization / Deserialization and tests therefor
+* Wrote a full set of tests for ClojureScript client
+* Built and tested a ClojureScript version of the ModelClient, with 
+  callback functionality
+* Implemented webclient version of the WebSocket communication framework
+* Developed a protocol for WebSocket communication between Haskell server
+  and ClojureScript webclient
+* Wrote basic ClojureScript testing framework
+
+(7/15/2011)
+* Implemented a very lightweight mechanism for logging
+* Setup a very basic namespacing mechanism that should work for both
+  Node.js and web clients
+
+(7/13/2011)
+* Wrote client-side of websocket and designed protocol schema for messages
+  between the client and the server, including connection, disconnection,
+  and replys.
+* Setup logging
+
+(7/12/2011)
+* Figure out logging for Snap
+* Wrote fairly detailed TODO list for next set of todo items in order
+  to have a complete end-to-end client-server system with automatic
+  updates based on models, model specs, and model clients.  Note: this
+  does not include any persistence as of yet.
+* Wrote a basic snap webserver
+* Wrote a basic websocket server that communicates with a basic websocket 
+  client
+* Setup compile environment for coffeescript
+
+(7/8/2011)
+* Run everything through hlint
+* Make sure our tests coverage is adequate
+* When a model client unsubscribes from a model, sent it a confirmation
+  message that it has been unsubscribed, reseting the model client
+* Write webpage visitor counter using the new model framework
+* Write tests for webpage visitor counter
+* Make sure tests for addSubscriberHelper to make sure that we're sending reset
+  messages to other actors as we should
+* Write tests for removeSubscriberHelper
+
+(7/6/2011)
+* Add a transactional verison of sendMessageA; make sure that functions
+  that should be transactional use the new version
+* Coded basic implementation of WebpageCounterActor
+* Added helpers for actors to handle adding and removing subscribers
+
+(6/25/2011)
+* Created ModelClient (read-only model) that handles reset and 
+* updates messages to stay in tune with related Model
+* Finished refactoring actor and subscriber and related tests
+* Ran actor and subscriber through hlint
+
+(6/20/2011)
+* Ran subscriber model and associated tests through hlint
+
+(6/19/2011)
+* Add delete array element operation and write tests
+
+(6/3/2011 - 6/17/2011)
+* Fix undefined in subscriber model
+* Changed the way models and views and model specs are defined to always
+  use array and tuple notation
+* Tests for update and reset messages
+* Rewrote update and reset messages
+* Added version number to messages
+* Added concept of view models to subscription model
+* Refactored subscription model and moved subscripers within model
+
+(5/28/2011 - 6/2/2011)
+* Refactor subscription model stuff to work with non-String keys
+  and non-String values with the ActorState
+* Move subscriber messages to Actor
+* Wrote tests for subscriber model
+* Wrote model and subscription handler for automatic updates from an actor
+  about changes to its model.
+* Added init for actors
+
+(5/27/2011)
+* Write basic SimpleChatroom
+* Tests now cover all critical elements of Actor.hs
+* Refactored tests to make them less verbose
+
+(5/26/2011)
+* Wrote some tests for actor messaging, about 1/3rd of the way through
+  writing full test suite for Actor and Actor Monad
+* Setup testing via Haskell's test framework
+* Ran everything through hlint and cleaned up code
+* Setup basic cabal build system, and refactored away error message
+* Went through Actor.hs and refactored some functions / cleaned up code
+* Make ActorMessage into a record with constructor/accessor methods
+  since it can be used externally
+
+(5/24/2011)
+* Actors can now schedule tasks (as messages) for future action
+* Implemented TerminateSelf ActorAction
+* Can now create actors from the Actor Monad
+* Added responses to actors (via channels)
+* Added sematics for getting an ActorProxy and for sending messages to that
+  Actor (blocking for response or not blocking for response)
+
+(5/23/2011)
+* Got rid of SendMessage as part of ActorActions and instead made similar
+  functionality available via the Actor Monad.
+* Rename actorChannels to something else; refactor variable names 
+  throughout to be clearer
+* Organize (internally), different components of the Actor framework
+* Write the framework for spawning Actors (in their own threads)
+* Write the framework that receives messages and has them run
+  through an Actor
+
+(5/22/2011)
+* Trying to get message receiving framework working
+
+(5/20/2011)
+* Use lift to make isSubsriber, getSubscribers, removeSubscribers, and 
+  addSubscribers more succinct
+* Thought about whether to move away from Error, ot whether to move away
+  from having both ActorExceptions and ActorResponses, but decided
+  to stick with current system for now
+
+(5/19/2011)
+* Use Typeable to allow client code to make their own Actors, ActorMessages, 
+  and ActorResponses (along with ActorExceptions) (to be used with Dynamics 
+  and the view pattern)
+
+(5/18/2011)
+* Figured out a good way to handle multi-typing of error messages
+  coming out of the Actor Monad
+* Created a Monad (via Monad Transformers) that provides state functionality 
+  (subscribers), error functionality (via throws), a queue of ActorActions 
+  to be handled by the supervisor (via a Writer Monad), as well as IO 
+  (although no functionality is currently made available)
+
+(5/17/2011)
+* Much experimenting with Monads and Monad Transformers
+
+(5/16/2011)
+* Make action more generic, support list of recipients for actor actions
+  of SendMessage type
+
+(5/14/2011)
+* Use Exceptions as opposed to Errors
+* Convert ChannelMessages to Actions
+* Combined the two versions of ChatMessage
+* Chatroom transfers now handled by a Monad supporting Errors and a Writer
+
+(5/13/2011)
+* Started writing basic Writer Monad to keep track of (future) IO actions / 
+  Messages that need to be sent
+* Basic algebraic data type for a simple chatroom and chat message; along 
+  with hunit test for ability to add a message to a simple chatroom
+* Setup project skeleton
+
+(5/9/2011)
+* Initial commit and TODO

@@ -1,0 +1,49 @@
+Prone is a Haskell and Clojurescript framework for making dynamic
+websites.  
+
+===
+
+Prone automatically synchronizes models between the server and
+clients, allowing changes to be experienced live across by multiple
+users.
+
+Server-side, data is encapsulated in Models, which are contained
+within and updated through actor-style messages.  Models are json-like
+data structures that support dictionaries (map), channels (push-only
+queues), arrays, and strings.  Clients have access to parts of a
+model, as defined by a view, and automatically receive updates for all
+changes to their view.
+
+Updates are synchronized using an actor model (see Actor.hs).
+
+===
+
+Pseudo-code example:
+
+;; assume client-1 and client-2 are actors that communicate
+;; with 2 web-clients using the Prone framework
+
+(def m (create-model {:name "Jean-Denis"
+                      :a-channel [1 2 3]}))
+
+(def m' (add-view m client-1 {:name true}))
+
+(def m'' (add-view m' client-2 {:name true
+                                :a-channel true}))
+
+(def m''' (update-model m'' {:name "Georgia"}))
+;; after the above, both client-1 and client-2
+;; receive update messages telling them that :name 
+;; has changed to "Georgia"
+
+(def m'''' (update-model m''' {:a-channel 4}))
+;; after the above, client-2 (only) receives an update
+;; message telling it that 4 has been appended to :a-channel
+
+===
+
+Requires a browser with websockets
+
+Prone v 0.1 8/12/2011
+
+
